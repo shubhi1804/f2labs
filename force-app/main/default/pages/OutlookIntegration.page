@@ -1,0 +1,29 @@
+<apex:page controller="OutlookIntegrationController">
+    
+    <apex:form style="">
+        
+        <apex:pageBlock >
+            
+            <apex:pageBlockSection >
+                
+                <apex:commandButton value="Connect To Outlook" action="{!connect}" style="color:blue;"/>
+                
+                <apex:commandButton value="Fetch Auth Token" action="{!showtoken}" style="color:blue;"/>
+                
+                <apex:commandButton value="Get Info" action="{!getInfo}" style="color:blue;"/>
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock> 
+        
+    </apex:form>
+    
+    {!bodyprint}<br/>
+    
+    <br/>Email:  {!Email}
+    
+    <br/>Full Name:  {!FullName}
+    
+    <br/>User Id:  {!UserId}
+    
+</apex:page>

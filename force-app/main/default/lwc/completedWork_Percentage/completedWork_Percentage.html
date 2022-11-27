@@ -1,0 +1,66 @@
+<template>
+
+    <lightning-card title="Completed Work(In percentage)">
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <span></span>
+            </div>
+
+        </div><br/>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Product Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Product Family</div>
+                    </th>
+                    <!--th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Description</div>
+                    </th -->
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Completed Work(In percentage)">Completed Work(In percentage)</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={record} for:item="SBQQ__QuoteLine__c">
+                    <tr key={SBQQ__QuoteLine__c.Id}>
+                        
+                        <th scope="col">
+                            <div>{SBQQ__QuoteLine__c.Name}</div>
+                        </th>
+                        <th scope="col">
+                            <div>{SBQQ__QuoteLine__c.SBQQ__ProductName__c}</div>
+                        </th>
+                        <th scope="col">
+                            <div>{SBQQ__QuoteLine__c.SBQQ__ProductFamily__c}</div>
+                        </th>
+                        <!--th scope="col">
+                            <div>{SBQQ__QuoteLine__c.SBQQ__Description__c}</div>
+                            <lightning-textarea  name="input3" value={SBQQ__QuoteLine__c.SBQQ__Description__c} disabled=true></lightning-textarea>
+                        </th -->
+                        <th scope="col">
+                            <div>
+                                <lightning-input type="number" data-id={SBQQ__QuoteLine__c.Id} name="input6" value={SBQQ__QuoteLine__c.Completed_In_percent__c} step="0.01" onchange={handleChange}></lightning-input>
+                            </div>
+                        </th>
+                        
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <div class="slds-m-left_medium slds-m-top_medium slds-align_absolute-center">
+            <lightning-button disabled ={disable_savebutton} label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+        </div>
+        
+
+    </lightning-card>
+    
+</template>

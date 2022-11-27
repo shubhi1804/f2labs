@@ -1,0 +1,112 @@
+<template>
+    
+    
+
+    <template if:false={newJobCreate}>
+        <lightning-card title="S & R">
+            <!--lightning-button 
+                label={toggleSaveLabel} 
+                icon-name="utility:save" 
+                slot="actions"
+                onclick={handleSave}>
+            </lightning-button-->
+            <lightning-button 
+                label="New" 
+                slot="actions"
+                onclick={createNewJob}>
+            </lightning-button>
+            
+            <div class="slds-p-around_x-small">
+                <Table class="slds-table slds-table_cell-buffer slds-table_bordered"> 
+                    <thead>
+                        <tr>
+                            <th class="slds-size_3-of-10" scope="col">
+                                
+                                <div class="slds-truncate" title="Account Name">Job No</div>
+                            </th>
+                            <th class="slds-size_3-of-10" scope="col">
+                                <div class="slds-truncate" title="Control">Transfer From</div>
+                            </th>
+                            <th class="slds-size_3-of-10" scope="col">
+                                <div class="slds-truncate" title="Control">Transfer To</div>
+                            </th>
+                            <th class="slds-size_3-of-10" scope="col">
+                                <div class="slds-truncate" title="Job Type">Transfer Initiated By</div>
+                            </th>
+                            <th class="slds-size_1-of-10" scope="col">
+                                <div class="slds-truncate" title="Action">Job Type</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Action">Created Date</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each = {jobsList} for:item = "item" for:index="indexVar">
+                            <tr key={item.Id}>
+                                <td>
+                                    <a href={recordPageUrl} onclick={redirectToRecordPage} data-id={item.Id}> {item.Name} </a>
+                                    
+                                </td>
+                                <td>
+                                    {item.Transfer_From__c}
+                                </td>
+                                <td>
+                                    {item.Transfer_To__c}
+                                </td>
+                                <td>
+                                    {item.Send_By__r.Name}
+                                </td>
+                                <td>
+                                    {item.Job_Type__c}
+                                </td>
+                                <td>
+                                    {item.createddate}
+                                </td>
+                            </tr>
+                            
+                        </template>
+                    </tbody>
+                </Table>
+            </div>
+        </lightning-card>
+
+        
+    </template>
+    <template if:true={newJobCreate}>
+        <div>
+            <lightning-card>
+                <h3 slot="title">
+                    Select Job Type
+                </h3>
+                <div class="slds-align_absolute-center">
+                    <lightning-radio-group name="radioGroup"
+                    label="Radio Group"
+                    options={options}
+                    value={value}
+                    type="radio"
+                    onchange={handleRadioChange} ></lightning-radio-group>
+                </div>
+                
+                <div slot="footer">
+                    <lightning-button 
+                    label="Back" 
+                    slot="actions"
+                    onclick={back}>
+                </lightning-button>
+                    <lightning-button 
+                    label="Next" 
+                    slot="actions"
+                    onclick={recordCreateNextAction} class="slds-m-left_xx-small" variant="brand">
+                </lightning-button>
+            </div>
+                
+            </lightning-card>
+            
+        </div>
+        
+    </template>
+
+    
+    
+</template>

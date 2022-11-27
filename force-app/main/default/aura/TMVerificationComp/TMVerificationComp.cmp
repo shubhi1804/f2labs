@@ -1,0 +1,20 @@
+<aura:component controller= 'ProjectFlowHelper' implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="servicesList" type="List" default="[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadOptions }"/>
+    <aura:attribute name="recordId" type="String" default="a1w8B0000000KHAQA2"/>
+    
+    <lightning:select name="select" label="Send for TM Verification">
+        <option value="">-- None --</option>
+        <aura:iteration items="{!v.servicesList}" var="service">
+            <option value="{!service}" text="{!service}"></option>
+        </aura:iteration>
+    </lightning:select>
+    
+    <br/><br/>
+    
+    <div style = "margin-left:92%">
+        <lightning:button variant="success" label="Send" title="Successful action" onclick="{!c.handleClick}" />
+    </div>
+
+</aura:component>

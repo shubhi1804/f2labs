@@ -1,0 +1,193 @@
+<template>
+    <div class="slds-card" style="font-family: 'Open Sans', sans-serif">
+
+        <!-- Header -->
+        <header class="slds-card__header slds-media slds-media_center">
+            <div class="slds-media__figure">
+                <lightning-icon icon-name="standard:account" size="small"></lightning-icon>
+            </div>
+            <div class="slds-media__body slds-card__header-title slds-text-title_bold" style="font-size: 14px">
+                Job Creation
+            </div>
+        </header>
+
+        <lightning-card>
+            <ul class="slds-list_horizontal">
+                <li><lightning-textarea  name="Description__c" label="Description" value={DescriptionValue} onchange={handleInput}></lightning-textarea></li>&nbsp;&nbsp;&nbsp;
+                <li>
+                    <div class="slds-p-top_small">
+                      <lightning-input type="text"  label="Model"  name="Model__c" value={ModalValue} onchange={handleInput}></lightning-input>
+                    </div>
+                </li>&nbsp;&nbsp;&nbsp;
+                <li>
+                <div class="slds-p-top_small">
+                     <lightning-input type="text"  label="Serial" name="Serial__c" value={SerialValue} onchange={handleInput}></lightning-input>
+                </div>
+                </li>&nbsp;&nbsp;&nbsp;
+                <li>
+                    <div class="slds-p-top_small">
+                      <lightning-input type="text"  label="Sample Accessory" name="Sample_Accessory__c" value={SampleAccessoryValue} onchange={handleInput}></lightning-input>
+                    </div>
+                </li>&nbsp;&nbsp;&nbsp;
+                <!--li>  <lightning-combobox name="Type"
+                                          value={value}
+                                          placeholder="Select Type"
+                                          options={options}
+                                          onchange={handleChange} ></lightning-combobox></li-->&nbsp;&nbsp;&nbsp;
+                <li> <lightning-textarea name="Transfer_Notes__c" label="Transfer Notes"  value={TransferNotesValue} onchange={handleInput}></lightning-textarea></li>&nbsp;&nbsp;&nbsp;
+                <div class="slds-p-top_x-large">
+                    <li><lightning-button type="Sumbit" label="Copy To Selected Row" variant="brand" onclick={CopyValuesToRows} disabled={HandleButtonDisable}></lightning-button></li>&nbsp;&nbsp;&nbsp;
+                </div> &nbsp;&nbsp;&nbsp;   
+                 <div class="slds-p-top_x-large">  
+                    <li><lightning-button type="Sumbit" label="Copy From Existing Jobs" variant="brand" onclick={CopyValuesFromExistingJobs} ></lightning-button></li>
+               </div>
+              </ul>
+        </lightning-card>
+
+        <!-- Table -->
+        <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+            <thead>
+            <tr>
+                <th scope="col" height="22" style="width: 3rem">No.</th>
+                <th scope="col" height="22" style="width: 3rem"> Select</th>
+                <!--th scope="col" height="22">Date In</th-->
+                <th scope="col" height="22">Description</th>
+                <th scope="col" height="22">Model #</th>
+                <th scope="col" height="22">Serial #</th>
+                <th scope="col" height="22">Sample/Accessory #</th>
+                <!--th scope="col" height="22">Date Out</th-->
+                <th scope="col" height="22">Type #</th>
+                <th scope="col" height="22">Transfer Notes</th>
+                <th scope="col" height="22" style="width: 3rem"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <template for:each={listOfAccounts} for:item="rec">
+                <tr key={rec.Index__c} class="slds-hint-parent">
+                    <td style="font-weight: bold">
+                        <lightning-formatted-number value={rec.Index__c}></lightning-formatted-number>.
+                    </td>
+                    <td>
+                        <lightning-input class="slds-p-left_xx-large" type="checkbox" data-index="checkbox" data-id={rec.Index__c} onchange={changeHandler}></lightning-input>
+                    </td>
+                    <!--td>
+                        <lightning-input type="Date" variant="label-hidden" label="" data-id={rec.Index__c} name="Date_In__c" value={rec.Date_In__c} onchange={handleInputChange}></lightning-input>
+                    </td-->
+
+                    <td>
+                        <lightning-textarea data-id={rec.Index__c} name="Description__c" value={rec.Description__c} onchange={handleInputChange}></lightning-textarea>
+                        <!--lightning-input type="text" variant="label-hidden" label="" data-id={rec.index} name="Description__c" value={rec.Description__c} onchange={handleInputChange}></lightning-input-->
+                    </td>
+
+                    <td>
+                        <lightning-input type="text" variant="label-hidden" label="" data-id={rec.Index__c} name="Model__c" value={rec.Model__c} onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <td>
+                        <lightning-input type="text" variant="label-hidden" label="" data-id={rec.Index__c} name="Serial__c" value={rec.Serial__c} onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <td>
+                        <lightning-input type="text" variant="label-hidden" label="" data-id={rec.Index__c} name="Sample_Accessory__c" value={rec.Sample_Accessory__c} onchange={handleInputChange}></lightning-input>
+                    </td>
+                    <!--td>
+                        <lightning-input type="date" variant="label-hidden" label="" data-id={rec.Index__c} name="Date_Out__c" value={rec.Date_Out__c} onchange={handleInputChange}></lightning-input>
+                    </td-->
+                    <td>
+                        <div class="slds-p-bottom_medium">
+                         <lightning-combobox name="Type__c"
+                                            data-id={rec.Index__c}
+                                            value={rec.Type__c}
+                                            placeholder="Select Type"
+                                            options={options}
+                                            onchange={handleChange} ></lightning-combobox>
+                        </div>
+                    </td>
+                    <td>
+                        <lightning-textarea data-id={rec.Index__c} name="Transfer_Notes__c" label="" value={rec.Transfer_Notes__c} onchange={handleInputChange}></lightning-textarea>
+                        <!--lightning-input type="text" variant="label-hidden" label="" data-id={rec.index} name="Name" value={rec.Name} onchange={handleInputChange}></lightning-input-->
+                    </td>
+
+                    <td>
+                        <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove" name={rec.Index__c} onclick={removeRow}></lightning-button-icon>
+                    </td>
+                </tr>
+            </template>
+            </tbody>
+        </table>
+        <div class="slds-p-left_small slds-p-vertical_small">
+            <lightning-button class="slds-p-right_small" variant="destructive" label="Delete All Rows" title="Delete All Rows" icon-name="utility:recycle_bin_full" onclick={removeAllRows}></lightning-button>
+            <lightning-button variant="neutral" label="Add Additional Items" title="Add Additional Items" icon-name="utility:add" onclick={addNewRow}></lightning-button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="slds-modal__footer" style="padding: 0.50rem 1rem;">
+            <lightning-button icon-name="utility:save" variant="brand" label="Save Line Items" title="Save Line Items" onclick={createAccounts}></lightning-button>
+        </footer>
+    </div>
+
+
+    <!--On Button Click OpenModal PopUp-->
+
+    <template if:true={OpenModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Modal header</h1>
+                  </div>
+                  <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <!--table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col" height="22" style="width: 3rem"> Select</th>
+                                <th scope="col" height="22">Date In</th>
+                                <th scope="col" height="22">Name</th>
+                                <th scope="col" height="22">Transfer From</th>
+                                <th scope="col" height="22">Transfer To</th>
+                                <th scope="col" height="22">Project</th>
+                                <th scope="col" height="22" style="width: 3rem"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={ListOfJobs} for:item="Jobs">
+                                    <tr key={Jobs.id}>
+                                        <th>
+                                            
+                                            <lightning-input type="checkbox" variant="label-hidden"  data-id={Jobs.id} value={Jobs.id} onchange={selectDeselectAll}> </lightning-input>
+                                            <lightning-radio-group
+                                                options={Jobs.id}
+                                                value={value}
+                                                onchange={handleChange}>
+                                            </lightning-radio-group>
+                                            
+                                        </th>
+                                        <th>{Jobs.Name} </th>
+                                        <th>{Jobs.Transfer_From__c}</th>
+                                        <th>{Jobs.Transfer_To__c}</th>
+                                        <th>{Jobs.Project__r.Name} </th>
+                                    </tr>
+                                </template>
+                            </tbody>
+                    </table-->
+                    <lightning-datatable
+                       key-field="Id"
+                       data={ListOfJobs}
+                       columns={columns}
+                       max-row-selection=1
+                       onrowselection={getSelectedId}>
+                    </lightning-datatable>
+                  </div>
+                  <div class="slds-modal__footer">
+                    <lightning-button label="Proceed" variant="brand" onclick={HandleProceed}></lightning-button>
+                  </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>
